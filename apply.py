@@ -8,6 +8,7 @@ Created on Wed Jul 12 14:33:02 2023
 import pickle
 import numpy as np
 
+
 def apply():
     X_te= np.genfromtxt('input.csv', delimiter=',')
 

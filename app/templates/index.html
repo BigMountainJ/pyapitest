@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h1>CSV Processor Test</h1>
+
+    <form id="csv-form">
+        <input type="file" id="csv-file">
+        <button type="submit">Process CSV</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        $(document).ready(function() {
+            $("#csv-form").submit(function(e) {
+                e.preventDefault();
+
+                var formData = new FormData();
+                formData.append('file', $('#csv-file')[0].files[0]);
+
+                $.ajax({
+                    url: '/process',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(result) {
+                        $('#result').html('CSV processed successfully!');
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        $('#result').html('Error processing CSV');
+                    }
+                });
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>
