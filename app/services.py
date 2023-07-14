@@ -8,17 +8,15 @@ from io import BytesIO
 logger = logging.getLogger(__name__)
 
 def process_csv(file):
-  if not os.path.exists('tmp'): 
-    os.mkdir('tmp')
-
   filename = str(uuid.uuid4()) + '.csv'
   file_path = os.path.join('tmp', filename)
   
   if not os.path.exists(file_path):
+    file.seek(0)
     file.save(file_path)
 
   try:
-    X_te= np.genfromtxt("input.csv", delimiter=',')
+    X_te= np.genfromtxt(file_path, delimiter=',')
 
     with open('model.pickle', 'rb') as f:
         net,scaler = pickle.load(f) 
@@ -34,3 +32,4 @@ def process_csv(file):
 
   finally:
     os.remove(file_path)
+
