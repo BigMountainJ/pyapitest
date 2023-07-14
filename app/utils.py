@@ -5,3 +5,4 @@ def validate_csv(file):
         return False
     if(file.mimetype != 'text/csv'):
         return False
+    return True
