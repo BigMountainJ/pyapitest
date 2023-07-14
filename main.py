@@ -1,9 +1,10 @@
 from app import create_app
-from flask import render_template, jsonify
+from flask import render_template, jsonify, send_file
 from werkzeug.exceptions import HTTPException
 from app.exceptions import InputFileProcessingException
 import logging
 from flask_swagger_ui import get_swaggerui_blueprint
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,10 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 )
 
 app.register_blueprint(swaggerui_blueprint)
+
+@app.route('/api/docs/swagger.yaml', methods=['GET'])
+def swagger():
+    return send_file('swagger.yaml')
 
 @app.errorhandler(Exception)
 def handle_error(e):
