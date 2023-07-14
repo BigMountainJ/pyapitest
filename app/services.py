@@ -17,17 +17,13 @@ def process_csv(file):
 
   try:
     X_te= np.genfromtxt(file_path, delimiter=',')
-
     with open('model.pickle', 'rb') as f:
         net,scaler = pickle.load(f) 
-
     test_preds = net.predict(np.hstack([scaler.transform(X_te[:,:8]),X_te[:,8:]]))
-
     # Generate output
     output = BytesIO()
     np.savetxt(output, test_preds, delimiter=",")
     output.seek(0)
-
     return output
 
   finally:
