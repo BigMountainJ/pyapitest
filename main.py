@@ -13,14 +13,14 @@ app = create_app()
 def home():
     return render_template('index.html')
 
-SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
-API_URL = 'swagger.yaml'  # Our API url (can of course be a local resource)
+SWAGGER_URL = '/api/docs' 
+API_URL = 'swagger.yaml' 
 
-# Call factory function to create our blueprint
+
 swaggerui_blueprint = get_swaggerui_blueprint(
-    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    SWAGGER_URL, 
     API_URL,
-    config={  # Swagger UI config overrides
+    config={ 
         'app_name': "Test application"
     }
 )
