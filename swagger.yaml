@@ -1,0 +1,50 @@
+swagger: "2.0"
+info:
+  title: Process API
+  description: API to process a CSV file
+  version: "1.0"
+basePath: /
+schemes:
+  - http
+consumes:
+  - multipart/form-data
+produces:
+  - application/json
+paths:
+  /process:
+    post:
+      summary: Process a CSV file
+      description:
+        This endpoint processes a CSV file and returns the processed output.
+      parameters:
+        - name: file
+          in: formData
+          description: CSV file to process
+          required: true
+          type: file
+
+      responses:
+        200:
+          description: Successful processing
+          schema:
+            type: file
+            format: binary
+          headers:
+            Content-Disposition:
+              type: string
+              description: Specifies the filename for the downloaded file
+              default: attachment; filename=output.csv
+        400:
+          description: Invalid Input file
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        500:
+          description: Server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
