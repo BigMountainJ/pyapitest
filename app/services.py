@@ -4,6 +4,7 @@ import uuid
 import os
 import numpy as np
 from io import BytesIO
+from .exceptions import InputFileProcessingException
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,9 @@ def process_csv(file):
     np.savetxt(output, test_preds, delimiter=",")
     output.seek(0)
     return output
-
+  except Exception as err:
+    logger.error(err)
+    raise InputFileProcessingException("Failed to process the input file")
   finally:
     os.remove(file_path)
 

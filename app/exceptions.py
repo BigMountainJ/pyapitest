@@ -1,0 +1,2 @@
+class InputFileProcessingException(Exception):
+    pass
